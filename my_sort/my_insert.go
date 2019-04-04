@@ -8,7 +8,6 @@ package my_sort
 // 稳定排序
 // 测试发现 在待排序数较小时，增长较慢(约10倍) ，较大时增长非常快
 
-
 // 插入排序算法
 func MInsert(input []int) {
 	for i := 1 ; i < len(input) ; i ++ {
