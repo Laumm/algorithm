@@ -29,6 +29,7 @@ func quick(inputs [] int,p ,q int )  {
 	return
 }
 
+// 算法实现有问题，运行很慢
 func MQuick(inputs [] int)  {
 	quick(inputs , 0,len(inputs)-1)
 }
