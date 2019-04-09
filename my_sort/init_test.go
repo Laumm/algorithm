@@ -1,28 +1,10 @@
 package my_sort
 
 import (
-	"math"
 	"math/rand"
 	"time"
 )
 
-var to10 [1000][]int
-var to100[1000][]int
-var to1000[1000][]int
-var to10000[1000][]int
-var to100000[1000][]int
-func init()  {
-
-	for i := 0 ; i < 1000 ; i ++ {
-		to10[i] = generate(0,math.MaxInt8,10)
-		to100[i] = generate(0,math.MaxInt8,100)
-		to1000[i] = generate(0,math.MaxInt8,1000)
-		to10000[i] = generate(0,math.MaxInt8,10000)
-		to100000[i] = generate(0,math.MaxInt8,100000)
-	}
-
-
-}
 
 // 随机生成正数切片
 // 0 <= min <= 元素值 <= max 个数 == len
@@ -38,6 +20,14 @@ func generate (min ,max , len int) [] int{
 		results =append(results,r + min)
 	}
 	return  results
+}
+
+func generates (min ,max , len,num int) [][]int  {
+	result := make([][]int,0,num)
+	for i := 0 ;i < num ; i++ {
+		result =append(result,generate(min,max,len))
+	}
+	return result
 }
 
 func compare(a,b [] int) bool {

@@ -6,23 +6,42 @@ import (
 	"testing"
 )
 
+func TestMQuick(t *testing.T) {
+		to := generate(0,math.MaxInt32,100)
+		t.Log("Generate:",to)
+		get := make([]int,len(to))
+		want := make([]int,len(to))
+		copy(get,to)
+		copy(want,to)
+		MQuick(get)
+		sort.Ints(want)
+		t.Log("Get:",get)
+		t.Log("Want:",want)
+		if !compare(get,want) {
+			t.Fatalf("Insert sorted  test err \n\t Get %v \n\t Want %v",get,want)
+		}
+		return
+}
 
-func TestMInsert(t *testing.T) {
-	to := generate(0,math.MaxInt32,10)
+func TestMRandQuick(t *testing.T) {
+	to := generate(0,math.MaxInt32,100)
+	t.Log("Generate:",to)
 	get := make([]int,len(to))
 	want := make([]int,len(to))
 	copy(get,to)
 	copy(want,to)
-	MInsert(get)
+	MRandQuick(get)
 	sort.Ints(want)
+	t.Log("Get:",get)
+	t.Log("Want:",want)
 	if !compare(get,want) {
 		t.Fatalf("Insert sorted  test err \n\t Get %v \n\t Want %v",get,want)
 	}
 	return
 }
 
-// BenchmarkMInsert10-4   	   20000	     8 3373 ns/op	       0 B/op	       0 allocs/op
-func BenchmarkMInsert10(b *testing.B) {
+// BenchmarkMQuick10-4   	   10000	    14 4856 ns/op	       0 B/op	       0 allocs/op
+func BenchmarkMQuick10(b *testing.B) {
 	b.ReportAllocs()
 	generates := generates(0,math.MaxInt32,10,1000)
 	b.ResetTimer()
@@ -36,14 +55,13 @@ func BenchmarkMInsert10(b *testing.B) {
 		}
 		b.StartTimer()
 		for j := 0 ; j < len(inputs); j ++ {
-			MInsert(inputs[i % len(inputs)])
+			MQuick(inputs[i % len(inputs)])
 		}
 	}
 }
 
-
-// BenchmarkMInsert100-4   	    2000	    66 2287 ns/op	       0 B/op	       0 allocs/op
-func BenchmarkMInsert100(b *testing.B) {
+// BenchmarkMQuick100-4   	     300	   478 8788 ns/op	       0 B/op	       0 allocs/op
+func BenchmarkMQuick100(b *testing.B) {
 	b.ReportAllocs()
 	generates := generates(0,math.MaxInt32,100,1000)
 	b.ResetTimer()
@@ -57,13 +75,13 @@ func BenchmarkMInsert100(b *testing.B) {
 		}
 		b.StartTimer()
 		for j := 0 ; j < len(inputs); j ++ {
-			MInsert(inputs[i % len(inputs)])
+			MQuick(inputs[i % len(inputs)])
 		}
 	}
 }
 
-// BenchmarkMInsert1000-4   	     200	   639 3116 ns/op	       0 B/op	       0 allocs/op
-func BenchmarkMInsert1000(b *testing.B) {
+// BenchmarkMQuick1000-4   	      20	  7959 2886 ns/op	       0 B/op	       0 allocs/op
+func BenchmarkMQuick1000(b *testing.B) {
 	b.ReportAllocs()
 	generates := generates(0,math.MaxInt32,1000,1000)
 	b.ResetTimer()
@@ -77,12 +95,12 @@ func BenchmarkMInsert1000(b *testing.B) {
 		}
 		b.StartTimer()
 		for j := 0 ; j < len(inputs); j ++ {
-			MInsert(inputs[i % len(inputs)])
+			MQuick(inputs[i % len(inputs)])
 		}
 	}
 }
-//  BenchmarkMInsert10000-4   	      20	  8388 2469 ns/op	       0 B/op	       0 allocs/op
-func BenchmarkMInsert10000(b *testing.B) {
+// BenchmarkMQuick10000-4   	       1	14 1775 4331 ns/op	       0 B/op	       0 allocs/op
+func BenchmarkMQuick10000(b *testing.B) {
 	b.ReportAllocs()
 	generates := generates(0,math.MaxInt32,10000,1000)
 	b.ResetTimer()
@@ -96,13 +114,12 @@ func BenchmarkMInsert10000(b *testing.B) {
 		}
 		b.StartTimer()
 		for j := 0 ; j < len(inputs); j ++ {
-			MInsert(inputs[i % len(inputs)])
+			MQuick(inputs[i % len(inputs)])
 		}
 	}
 }
-
-// BenchmarkMInsert100000-4   	       1	39 3747 6169 ns/op	       0 B/op	       0 allocs/op
-func BenchmarkMInsert100000(b *testing.B) {
+// 无效
+func BenchmarkMQuick100000(b *testing.B) {
 	b.ReportAllocs()
 	generates := generates(0,math.MaxInt32,100000,1000)
 	b.ResetTimer()
@@ -116,7 +133,8 @@ func BenchmarkMInsert100000(b *testing.B) {
 		}
 		b.StartTimer()
 		for j := 0 ; j < len(inputs); j ++ {
-			MInsert(inputs[i % len(inputs)])
+			MQuick(inputs[i % len(inputs)])
 		}
 	}
 }
+
